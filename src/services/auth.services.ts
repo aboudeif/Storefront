@@ -47,7 +47,7 @@ export const loginService = async (credentials: UserCredentials): Promise<AuthDa
 const generateToken = (user: User): string => {
     try {
         const payload: TokenPayload = { sub: user.email, name: user.name };
-        return jwt.sign(payload, authConfig.jwtSecret, { expiresIn: authConfig.jwtExpiresIn });
+        return jwt.sign(payload, authConfig.jwtSecret);
     } catch (error) {
         throw new Error(error as string)
     }
