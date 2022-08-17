@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
 import { User , createUser, getUserByEmail } from "../models/user.model"
 import { AuthData, TokenPayload, UserCredentials } from "../models/auth.model"
 import authConfig from "../auth"
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 export const registerService = async (user: User): Promise<User> => {
     try {
