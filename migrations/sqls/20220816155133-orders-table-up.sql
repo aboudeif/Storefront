@@ -4,7 +4,7 @@ CREATE TABLE orders (
     quantity integer NOT NULL,
     user_id integer NOT NULL,
     total_price DECIMAL(10,2) NOT NULL,
-    is_completed boolean DEFAULT false,
+    is_completed boolean DEFAULT true,
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (product_id) REFERENCES products (id)
 );

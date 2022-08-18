@@ -1,6 +1,9 @@
 import { getUserByEmail } from "../models/user.model";
 import { Request, Response, NextFunction } from "express"
 import { verifyToken } from "../services/auth.service"
+import jwt from "jsonwebtoken"
+import { TokenPayload } from "../models/auth.model";
+import authConfig from "../auth";
 
 export const signinMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   let errors: string[] = []
@@ -58,15 +61,15 @@ export const verifyTokenMiddleware = async (req: Request, res: Response, next: N
   try {
       const token = req.headers.authorization as string;
       if (!token) throw new Error("Token not found");
-      const payload = await verifyToken(token);
+      const payload: TokenPayload = jwt.verify(token.split(" ")[1], authConfig.jwtSecret) as TokenPayload;
+      if(!payload) throw new Error("Invalid token");
       const user = await getUserByEmail(payload.email);
-      res.send(user)
-        if (!user) throw new Error("Unauthorized");
-      res.locals.user = user.id;
+      if (!user) throw new Error("Unauthorized");
+      res.locals.user = user;
       next();
   } catch (error) {
       res.status(401).send({
-          "message": error
+          "cc": error
       });
   }
 }

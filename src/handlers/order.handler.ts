@@ -36,17 +36,14 @@ export const getAllOrdersHandler = async (req: Request, res: Response): Promise<
 export const createOrderHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const { product_id, quantity } = req.body;
-    const user_id = res.locals.user as number;
+    const user_id = res.locals.user.id as number;
     const order = await createOrderService({ user_id, product_id, quantity });
     res.send({
       "message": "Order created successfully",
       order
     });
-  } catch (error: unknown) {
-    const { message } = error as { message: string }
-    res.status(400).send({
-      "message": message
-    });
+  } catch(error){
+    res.status(400).send(`Couldent creating order, ${error}`);
   }
 }
 
