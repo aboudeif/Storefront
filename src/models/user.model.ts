@@ -4,7 +4,8 @@ import client from '../database'
 
 export interface User{
     id?: number
-    name: string
+    firstname: string
+    lastname: string
     email: string
     password?: string
 }
@@ -30,9 +31,9 @@ export const getAllUsers = async (): Promise<User[]> => {
 }
 
 export const createUser = async (user: User): Promise<User> => {
-    const { name, email, password } = user;
-    const queryText = `INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *`
-    const data = await client.query(queryText, [name, email, password])
+    const { firstname, lastname, email, password } = user;
+    const queryText = `INSERT INTO users (firstname, lastname, email, password) VALUES ($1, $2, $3, $4) RETURNING *`
+    const data = await client.query(queryText, [firstname, lastname, email, password])
 
     return data.rows[0]
 }

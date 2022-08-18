@@ -1,7 +1,7 @@
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(64) NOT NULL,
-    price integer NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
     category VARCHAR(64) NOT NULL,
-    is_avilaible boolean DEFAULT true
+    is_available boolean DEFAULT true
 );

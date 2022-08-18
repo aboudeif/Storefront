@@ -32,7 +32,8 @@ export const loginService = async (credentials: UserCredentials): Promise<AuthDa
 
         const authData: AuthData = {
             user: {
-                name: user.name as string,
+                firstname: user.firstname as string,
+                lastname: user.lastname as string,
                 email: user.email as string
             },
             token
@@ -46,8 +47,17 @@ export const loginService = async (credentials: UserCredentials): Promise<AuthDa
 
 const generateToken = (user: User): string => {
     try {
-        const payload: TokenPayload = { sub: user.email, name: user.name };
+        const payload: TokenPayload = { email: user.email, firstname: user.firstname, lastname: user.lastname };
         return jwt.sign(payload, authConfig.jwtSecret);
+    } catch (error) {
+        throw new Error(error as string)
+    }
+}
+
+export const verifyToken = async (token: string): Promise<TokenPayload> => {
+    try {
+        const payload = jwt.verify(token, authConfig.jwtSecret) as TokenPayload;
+        return payload;
     } catch (error) {
         throw new Error(error as string)
     }

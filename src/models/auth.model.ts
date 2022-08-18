@@ -11,14 +11,14 @@ export interface AuthData{
 }
 
 interface AuthUser {
-  name: string
+  firstname: string
+  lasttname: string
   email: string
 }
 
 export interface TokenPayload {
-  sub: string
-  name: string
-  iat?: number
+  email: string
+  firstname: string
+  lastname: string
   exp?: number
-  iss?: string
 }

@@ -6,7 +6,7 @@ export const getProductByIdService = async (id: number): Promise<Product> => {
     return product;
   }
   catch(error){
-    throw new Error(`Error getting product with id ${id}, ${error}`);
+    throw new Error(`${error}`);
   }
 }
 
@@ -16,7 +16,7 @@ export const getAllProductsService = async (): Promise<Product[]> => {
     return products;
   }
   catch(error){
-    throw new Error(`Error getting all products, ${error}`);
+    throw new Error(`${error}`);
   }
 }
 
@@ -26,7 +26,7 @@ export const createProductService = async (product: Product): Promise<Product> =
     return newProduct;
   }
   catch(error){
-    throw new Error(`Error creating product, ${error}`);
+    throw new Error(`${error}`);
   }
 }
 
@@ -36,7 +36,7 @@ export const updateProductService = async (product: Product): Promise<Product> =
     return updatedProduct;
   }
   catch(error){
-    throw new Error(`Error updating product, ${error}`);
+    throw new Error(`${error}`);
   }
 }
 
@@ -46,7 +46,7 @@ export const deleteProductService = async (id: number): Promise<Product> => {
     return deletedProduct;
   }
   catch(error){
-    throw new Error(`Error deleting product, ${error}`);
+    throw new Error(`${error}`);
   }
 }
 

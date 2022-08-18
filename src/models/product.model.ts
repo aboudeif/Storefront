@@ -31,8 +31,8 @@ export const createProduct = async (product: Product): Promise<Product> => {
 }
 
 export const updateProduct = async (product: Product): Promise<Product> => {
-  const { id, name, price, category, is_available } = product;
-  const queryText = `UPDATE products SET name = $1, price = $2, category = $3, available = $4 WHERE id = $5 RETURNING *`;
+  const { name, price, category, is_available, id } = product;
+  const queryText = `UPDATE products SET name = $1, price = $2, category = $3, is_available = $4 WHERE id = $5 RETURNING *`;
   const data = await client.query(queryText, [name, price, category, is_available, id]);
 
   return data.rows[0];
@@ -45,3 +45,9 @@ export const deleteProduct = async (id: number): Promise<Product> => {
   return data.rows[0];
 }
 
+export const getProductPrice = async (id: number): Promise<number> => {
+  const queryText = `SELECT price FROM products WHERE id = $1`;
+  const data = await client.query(queryText, [id]);
+
+  return data.rows[0].price;
+}

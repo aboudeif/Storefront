@@ -19,8 +19,8 @@ export const signinHanlder = async (req: Request, res: Response): Promise<void> 
 
 export const registerHandler = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, email, password } = req.body;
-        const data = await registerService({ name, email, password });
+        const { firstname, lastname, email, password } = req.body;
+        const data = await registerService({ firstname, lastname, email, password });
         if (!data) {
             throw new Error("Error registering user, please try again");
         }

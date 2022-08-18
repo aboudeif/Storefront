@@ -1,4 +1,6 @@
+import { getUserByEmail } from "../models/user.model";
 import { Request, Response, NextFunction } from "express"
+import { verifyToken } from "../services/auth.service"
 
 export const signinMiddleware = (req: Request, res: Response, next: NextFunction): void => {
   let errors: string[] = []
@@ -22,13 +24,13 @@ export const signinMiddleware = (req: Request, res: Response, next: NextFunction
 export const registerMiddleware = (req: Request, res: Response, next: NextFunction): void => {
     let errors: string[] = []
 
-    const { name, email, password } = req.body
-    if (!name) {
+    const { firstname, lastname, email, password } = req.body
+    if (!firstname || !lastname) {
         errors.push('Name is required')
     } else {
-        if (name.length < 2) errors.push('Name must be at least 2 characters')
-        if (name.length > 50) errors.push('Name must be less than 50 characters')
-        if (!name.match(/^[a-zA-Z ]+$/)) errors.push('Name must be alphabetic')
+        if (firstname.length < 2 || lastname.length < 2) errors.push('Name must be at least 2 characters')
+        if (firstname.length > 25 || lastname.length > 25) errors.push('Name must be less than 50 characters')
+        if (!firstname.match(/^[a-zA-Z ]+$/) || !lastname.match(/^[a-zA-Z ]+$/)) errors.push('Name must be alphabetic')
     }
     if (!email) {
         errors.push('Email is required')
@@ -39,7 +41,7 @@ export const registerMiddleware = (req: Request, res: Response, next: NextFuncti
         errors.push('Password is required')
     } else {
         if (password.length < 6) errors.push('Password must be at least 6 characters')
-        if (password.length > 30) errors.push('Password must be less than 30 characters')
+        if (password.length > 32) errors.push('Password must be less than 30 characters')
     }
 
     if (errors.length) {
@@ -50,4 +52,21 @@ export const registerMiddleware = (req: Request, res: Response, next: NextFuncti
         return
     }
     next()
+}
+
+export const verifyTokenMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+      const token = req.headers.authorization as string;
+      if (!token) throw new Error("Token not found");
+      const payload = await verifyToken(token);
+      const user = await getUserByEmail(payload.email);
+      res.send(user)
+        if (!user) throw new Error("Unauthorized");
+      res.locals.user = user.id;
+      next();
+  } catch (error) {
+      res.status(401).send({
+          "message": error
+      });
+  }
 }
