@@ -1,16 +1,17 @@
-import express, { Request, Response } from 'express'
+import dotenv from 'dotenv'
+import express from 'express'
 import bodyParser from 'body-parser'
-
 import router from './routes/index.route'
 
 const app: express.Application = express()
-const address: string = "0.0.0.0:3000"
+dotenv.config()
+const { SERVER_PORT } = process.env
 
 app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(router)
 
-app.listen(3000, function () {
-    console.log(`starting app on: ${address}`)
+app.listen(SERVER_PORT, function () {
+  console.log(`starting app on: ${SERVER_PORT}`)
 })

@@ -4,7 +4,7 @@ import { signinMiddleware, registerMiddleware } from '../middlewares/auth.middle
 
 const authRouter = express.Router()
 
-authRouter.post('/login',signinMiddleware, signinHanlder)
-authRouter.post('/register',registerMiddleware, registerHandler)
+authRouter.post('/login', signinMiddleware, signinHanlder)
+authRouter.post('/register', registerMiddleware, registerHandler)
 
 export default authRouter
