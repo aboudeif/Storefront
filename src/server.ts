@@ -15,3 +15,5 @@ app.use(router)
 app.listen(SERVER_PORT, function () {
   console.log(`starting app on: ${SERVER_PORT}`)
 })
+
+export default app

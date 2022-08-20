@@ -7,15 +7,15 @@ import {
   deleteOrderHandler,
   getOrdersByUserIdHandler
 } from '../handlers/order.handler'
-import { verifyTokenMiddleware } from '../middlewares/auth.middleware'
+import { verifyTokenMiddleware, verifyUserAuthorizationMiddleware, verifyAdminOrSelfMiddleware, verifyAdminMiddleware } from '../middlewares/auth.middleware'
 
 const orderRouter = express.Router()
 
-orderRouter.get('/', getAllOrdersHandler)
-orderRouter.get('/:id', getOrderByIdHandler)
+orderRouter.get('/', verifyTokenMiddleware, verifyAdminMiddleware, getAllOrdersHandler)
+orderRouter.get('/:id', verifyTokenMiddleware, getOrderByIdHandler)
 orderRouter.post('/', verifyTokenMiddleware, createOrderHandler)
-orderRouter.put('/:id', updateOrderHandler)
-orderRouter.delete('/:id', deleteOrderHandler)
-orderRouter.get('/user/:id', getOrdersByUserIdHandler)
+orderRouter.put('/:id', verifyTokenMiddleware, verifyUserAuthorizationMiddleware, updateOrderHandler)
+orderRouter.delete('/:id', verifyTokenMiddleware, verifyUserAuthorizationMiddleware, deleteOrderHandler)
+orderRouter.get('/user/:id', verifyTokenMiddleware, verifyAdminOrSelfMiddleware, getOrdersByUserIdHandler)
 
 export default orderRouter

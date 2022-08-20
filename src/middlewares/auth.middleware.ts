@@ -1,3 +1,4 @@
+import { getOrderByIdService } from './../services/order.service';
 import { getUserByEmail } from '../models/user.model'
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
@@ -71,3 +72,27 @@ export const verifyTokenMiddleware = async (req: Request, res: Response, next: N
     })
   }
 }
+
+export const verifyAdminMiddleware = (req: Request, res: Response, next: NextFunction): void => {
+  if (res.locals.user.role === 'admin') next()
+  else res.status(403).send({
+    message: 'Unauthorized'
+  })
+}
+
+export const verifyUserAuthorizationMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  const order = await getOrderByIdService(Number(req.params.id))
+  if (res.locals.user.id === order.user_id) next()
+  else res.status(403).send({
+    message: 'Unauthorized'
+  })
+}
+
+export const verifyAdminOrSelfMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  const order = await getOrderByIdService(Number(req.params.id))
+  if (res.locals.user.role === 'admin' || res.locals.user.id === order.user_id) next()
+  else res.status(403).send({
+    message: 'Unauthorized'
+  })
+}
+

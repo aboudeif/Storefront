@@ -4,7 +4,7 @@ CREATE TABLE orders (
     quantity integer NOT NULL,
     user_id integer NOT NULL,
     total_price DECIMAL(10,2) NOT NULL,
-    is_completed boolean DEFAULT true,
+    status varchar(10) NOT NULL DEFAULT 'active',
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (product_id) REFERENCES products (id)
 );

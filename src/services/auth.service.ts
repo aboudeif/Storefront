@@ -26,7 +26,7 @@ export const loginService = async (credentials: UserCredentials): Promise<AuthDa
 
     // generate token
     const token = generateToken(user)
-
+    
     const authData: AuthData = {
       user: {
         firstname: user.firstname as string,
