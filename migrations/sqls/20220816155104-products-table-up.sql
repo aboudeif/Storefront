@@ -3,5 +3,5 @@ CREATE TABLE products (
     name VARCHAR(64) NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     category VARCHAR(64) NOT NULL,
-    is_available boolean DEFAULT true
+    is_available boolean NOT NULL DEFAULT true
 );

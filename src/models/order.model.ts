@@ -6,7 +6,7 @@ export interface Order {
   product_id: number
   quantity: number
   total_price?: number
-  is_completed?: boolean
+  status?: string
 }
 
 export const getOrderById = async (id: number): Promise<Order> => {
@@ -24,17 +24,17 @@ export const getAllOrders = async (): Promise<Order[]> => {
 }
 
 export const createOrder = async (order: Order): Promise<Order> => {
-  const { user_id, product_id, quantity, total_price, is_completed } = order
-  const queryText = `INSERT INTO orders (user_id, product_id, quantity, total_price, is_completed) VALUES ($1, $2, $3, $4, $5) RETURNING *`
-  const data = await client.query(queryText, [user_id, product_id, quantity, total_price, is_completed])
+  const { user_id, product_id, quantity, total_price } = order
+  const queryText = `INSERT INTO orders (user_id, product_id, quantity, total_price) VALUES ($1, $2, $3, $4) RETURNING *`
+  const data = await client.query(queryText, [user_id, product_id, quantity, total_price])
 
   return data.rows[0]
 }
 
 export const updateOrder = async (order: Order): Promise<Order> => {
-  const { user_id, product_id, quantity, total_price, is_completed, id } = order
-  const queryText = `UPDATE orders SET user_id = $1, product_id = $2, quantity = $3, total_price = $4, is_completed = $5 WHERE id = $6 RETURNING *`
-  const data = await client.query(queryText, [user_id, product_id, quantity, total_price, is_completed, id])
+  const { user_id, product_id, quantity, total_price, status, id } = order
+  const queryText = `UPDATE orders SET user_id = $1, product_id = $2, quantity = $3, total_price = $4, status = $5 WHERE id = $6 RETURNING *`
+  const data = await client.query(queryText, [user_id, product_id, quantity, total_price, status, id])
 
   return data.rows[0]
 }

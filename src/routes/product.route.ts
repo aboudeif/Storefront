@@ -6,13 +6,14 @@ import {
   updateProductHandler,
   deleteProductHandler
 } from '../handlers/product.handler'
+import { verifyTokenMiddleware, verifyAdminMiddleware } from '../middlewares/auth.middleware'
 
 const productRouter = express.Router()
 
 productRouter.get('/:id', getProductByIdHandler)
 productRouter.get('/', getAllProductsHandler)
-productRouter.post('/', createProductHandler)
-productRouter.put('/:id', updateProductHandler)
-productRouter.delete('/:id', deleteProductHandler)
+productRouter.post('/', verifyTokenMiddleware, verifyAdminMiddleware, createProductHandler)
+productRouter.put('/:id', verifyTokenMiddleware, verifyAdminMiddleware, updateProductHandler)
+productRouter.delete('/:id', verifyTokenMiddleware, verifyAdminMiddleware, deleteProductHandler)
 
 export default productRouter
