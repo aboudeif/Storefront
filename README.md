@@ -20,8 +20,10 @@ This repo contains a basic Node and Express app to get you started in constructi
 ### Installation Instructions
 
 1. clone this repo on your local machine
+
 `https://github.com/aboudeif/Storefront.git`
 2. open 'Storefront' director
+
 ` cd Storefront`
 3. install pakages
 `yarn install` or `npm i`
