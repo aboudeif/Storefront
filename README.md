@@ -7,21 +7,31 @@ This repo contains a basic Node and Express app to get you started in constructi
 ## Required Technologies
 
 - Postgres for the database
+
 - Node/Express for the application logic
+
 - dotenv from npm for managing environment variables
+
 - db-migrate from npm for migrations
+
 - jsonwebtoken from npm for working with JWTs
+
 - jasmine from npm for testing
 
+
 ## Ports
+
 - Project web server works on port 3000 as provided in .env file
+
 - Postgres database works on port 5432 as provided in .env file
+
 
 ### Installation Instructions
 
 1. clone this repo on your local machine
 
 `https://github.com/aboudeif/Storefront.git`
+
 2. open 'Storefront' director
 
 ` cd Storefront`
@@ -53,7 +63,7 @@ This repo contains a basic Node and Express app to get you started in constructi
 
 create .env file in the root directory of project with the values bloew:
 
-`
+```
 NODE_ENV=dev
 POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
@@ -67,7 +77,7 @@ JWT_SECRET=storeSecret
 
 SERVER_PORT=3000
 
-`
+```
 
 
 9. migrate database
