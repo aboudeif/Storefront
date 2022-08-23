@@ -1,10 +1,11 @@
-import { getAllUsers, getUserById } from './../models/user.model';
+import { getAllUsers, getUserById } from './../models/user.model'
 import { User, createUser, getUserByEmail } from '../models/user.model'
 import { AuthData, TokenPayload, UserCredentials } from '../models/auth.model'
 import authConfig from '../auth'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+// register new user
 export const registerService = async (user: User): Promise<User> => {
   try {
     const hashedPassword = bcrypt.hashSync(user.password + authConfig.paper, authConfig.rounds)
@@ -16,6 +17,7 @@ export const registerService = async (user: User): Promise<User> => {
   }
 }
 
+// login user
 export const loginService = async (credentials: UserCredentials): Promise<AuthData> => {
   try {
     const user = await getUserByEmail(credentials.email)
@@ -27,7 +29,7 @@ export const loginService = async (credentials: UserCredentials): Promise<AuthDa
 
     // generate token
     const token = generateToken(user)
-    
+
     const authData: AuthData = {
       user: {
         firstname: user.firstname as string,
@@ -43,6 +45,7 @@ export const loginService = async (credentials: UserCredentials): Promise<AuthDa
   }
 }
 
+// get user by id
 export const getUserByIdService = async (id: number): Promise<User> => {
   try {
     const user = await getUserById(id)
@@ -53,6 +56,7 @@ export const getUserByIdService = async (id: number): Promise<User> => {
   }
 }
 
+// get all users
 export const getAllUsersService = async (): Promise<User[]> => {
   try {
     const users = await getAllUsers()
@@ -62,7 +66,7 @@ export const getAllUsersService = async (): Promise<User[]> => {
   }
 }
 
-
+// generate token
 const generateToken = (user: User): string => {
   try {
     const payload: TokenPayload = { email: user.email, firstname: user.firstname, lastname: user.lastname }
@@ -72,6 +76,7 @@ const generateToken = (user: User): string => {
   }
 }
 
+// verify token
 export const verifyToken = async (token: string): Promise<TokenPayload> => {
   try {
     const payload = jwt.verify(token, authConfig.jwtSecret) as TokenPayload

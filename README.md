@@ -13,27 +13,52 @@ This repo contains a basic Node and Express app to get you started in constructi
 - jsonwebtoken from npm for working with JWTs
 - jasmine from npm for testing
 
-### Database tables:
+## Ports
+- Project web server works on port 3000 as provided in .env file
+- Postgres database works on port 5432 as provided in .env file
 
-- Table: user(id: serial integer [primary key], firstName:varchar, lastName:varchar, email:varchar, password:varchar, role:varchar [default=user])
+### Installation Instructions
 
-- Table: products(id: serial integer [primary key], name:varchar, price:decimal, category:varchar, is_available:boolean [default=true])
+1. clone this repo on your local machine
+`https://github.com/aboudeif/Storefront.git`
+2. open 'Storefront' director
+` cd Storefront`
+3. install pakages
+`yarn install` or `npm i`
+4. create postgres database docker container using the *docker-compose.yml* or open current postgres database
+`psql -U postgres`
+5. create postgresql user
+`CREATE USER store_admin WITH PASSWORD 'dataPassword';`
+6. create a database with name *store*
+`CREATE DATABASE store;`
+7. grant all privileges for user on database
+`\c store`
+`GRANT ALL PRIVILEGES ON DATABASE store TO store_admin;`
+8. set .env file
 
--Table: orders(id: serial integer [primary key], product_id integer [foreign key to product table], quantity:integer, user_id integer [foreign key to user table], total_price:decimal, status:varchar[default=active])
+create .env file in the root directory of project with the values bloew:
+`
+NODE_ENV=dev
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=store_admin
+POSTGRES_PASSWORD=dataPassword
+POSTGRES_DB=store
 
-## Setup and connect to the database:
+BCRYPT_ROUNDS=10
+BCRYPT_PASSWORD_PAPER_KEY=storePaperKey
+JWT_SECRET=storeSecret
 
+SERVER_PORT=3000
+`
+9. migrate database
+`npm install -g db-migrate`
+`db-migrate up`
 
-### 4. Express Handlers
+### Run Project Server
+run web server
+`npm run watch` or `yarn watch`
 
-Set up the Express handlers to route incoming requests to the correct model method. Make sure that the endpoints you create match up with the enpoints listed in `REQUIREMENTS.md`. Endpoints must have tests and be CORS enabled. 
-
-### 5. JWTs
-
-Add JWT functionality as shown in the course. Make sure that JWTs are required for the routes listed in `REQUIUREMENTS.md`.
-
-### 6. QA and `README.md`
-
-Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
-
-Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+### Test Project
+test all project endpoints
+`npm run test`

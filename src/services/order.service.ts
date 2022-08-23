@@ -1,3 +1,4 @@
+import { getProductById } from './../models/product.model'
 import {
   Order,
   getOrderById,
@@ -7,8 +8,8 @@ import {
   deleteOrder,
   getOrdersByUserId
 } from '../models/order.model'
-import { getProductPrice } from '../models/product.model'
 
+// get order by id
 export const getOrderByIdService = async (id: number): Promise<Order> => {
   try {
     const order = await getOrderById(id)
@@ -18,6 +19,7 @@ export const getOrderByIdService = async (id: number): Promise<Order> => {
   }
 }
 
+// index all orders
 export const getAllOrdersService = async (): Promise<Order[]> => {
   try {
     const orders = await getAllOrders()
@@ -27,9 +29,11 @@ export const getAllOrdersService = async (): Promise<Order[]> => {
   }
 }
 
+// create order
 export const createOrderService = async (order: Order): Promise<Order> => {
   try {
-    const price = await getProductPrice(order.product_id)
+    const product = await getProductById(order.product_id)
+    const price = product.price
     order.total_price = order.quantity * price
     const newOrder = await createOrder(order)
     return newOrder
@@ -38,6 +42,7 @@ export const createOrderService = async (order: Order): Promise<Order> => {
   }
 }
 
+// update order
 export const updateOrderService = async (order: Order): Promise<Order> => {
   try {
     const updatedOrder = await updateOrder(order)
@@ -47,6 +52,7 @@ export const updateOrderService = async (order: Order): Promise<Order> => {
   }
 }
 
+// delete order
 export const deleteOrderService = async (id: number): Promise<Order> => {
   try {
     const deletedOrder = await deleteOrder(id)
@@ -56,6 +62,7 @@ export const deleteOrderService = async (id: number): Promise<Order> => {
   }
 }
 
+// index user orders
 export const getOrdersByUserIdService = async (user_id: number): Promise<Order[]> => {
   try {
     const orders = await getOrdersByUserId(user_id)

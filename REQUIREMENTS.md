@@ -54,4 +54,3 @@ These are the notes from a meeting with the frontend developer that describe wha
 - user_id integer [foreign key to user table]
 - total_price: decimal [price * quantity]
 - status: varchar [default=active]
-

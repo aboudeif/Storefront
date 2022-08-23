@@ -8,6 +8,7 @@ import {
   getOrdersByUserIdService
 } from '../services/order.service'
 
+// get order by id
 export const getOrderByIdHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params
@@ -24,6 +25,7 @@ export const getOrderByIdHandler = async (req: Request, res: Response): Promise<
   }
 }
 
+// index all orders
 export const getAllOrdersHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const orders = await getAllOrdersService()
@@ -39,6 +41,7 @@ export const getAllOrdersHandler = async (req: Request, res: Response): Promise<
   }
 }
 
+// create order
 export const createOrderHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const { product_id, quantity } = req.body
@@ -53,6 +56,7 @@ export const createOrderHandler = async (req: Request, res: Response): Promise<v
   }
 }
 
+// update order
 export const updateOrderHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = req.params.id as unknown as number
@@ -70,6 +74,7 @@ export const updateOrderHandler = async (req: Request, res: Response): Promise<v
   }
 }
 
+// delete order
 export const deleteOrderHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params
@@ -86,6 +91,7 @@ export const deleteOrderHandler = async (req: Request, res: Response): Promise<v
   }
 }
 
+// index user orders
 export const getOrdersByUserIdHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params

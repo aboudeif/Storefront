@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { getAllUsersService, getUserByIdService, loginService, registerService } from '../services/auth.service'
 
+// signin user
 export const signinHanlder = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body
@@ -17,6 +18,7 @@ export const signinHanlder = async (req: Request, res: Response): Promise<void> 
   }
 }
 
+// register new user
 export const registerHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const { firstname, lastname, email, password } = req.body
@@ -36,6 +38,7 @@ export const registerHandler = async (req: Request, res: Response): Promise<void
   }
 }
 
+// get user by id
 export const getUserByIdHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params
@@ -55,6 +58,7 @@ export const getUserByIdHandler = async (req: Request, res: Response): Promise<v
   }
 }
 
+// index all users
 export const getAllUsersHandler = async (req: Request, res: Response): Promise<void> => {
   try {
     const users = await getAllUsersService()

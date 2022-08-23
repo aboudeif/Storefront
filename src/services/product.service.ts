@@ -7,6 +7,7 @@ import {
   deleteProduct
 } from '../models/product.model'
 
+// get product by id
 export const getProductByIdService = async (id: number): Promise<Product> => {
   try {
     const product = await getProductById(id)
@@ -16,6 +17,7 @@ export const getProductByIdService = async (id: number): Promise<Product> => {
   }
 }
 
+// index all products
 export const getAllProductsService = async (): Promise<Product[]> => {
   try {
     const products = await getAllProducts()
@@ -25,6 +27,7 @@ export const getAllProductsService = async (): Promise<Product[]> => {
   }
 }
 
+// create product
 export const createProductService = async (product: Product): Promise<Product> => {
   try {
     const newProduct = await createProduct(product)
@@ -34,6 +37,7 @@ export const createProductService = async (product: Product): Promise<Product> =
   }
 }
 
+// update product
 export const updateProductService = async (product: Product): Promise<Product> => {
   try {
     const updatedProduct = await updateProduct(product)
@@ -43,6 +47,7 @@ export const updateProductService = async (product: Product): Promise<Product> =
   }
 }
 
+// delete product
 export const deleteProductService = async (id: number): Promise<Product> => {
   try {
     const deletedProduct = await deleteProduct(id)
