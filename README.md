@@ -2,6 +2,7 @@
 
 ## Getting Started
 
+
 This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
 
 ## Required Technologies
@@ -88,9 +89,15 @@ SERVER_PORT=3000
 
 
 ### Run Project Server
+
 run web server
+
 `npm run watch` or `yarn watch`
 
+
 ### Test Project
+
 test all project endpoints
+
 `npm run test`
+
