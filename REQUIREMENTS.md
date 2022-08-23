@@ -4,39 +4,54 @@ The company stakeholders want to create an online storefront to showcase their g
 These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
 
 ## API Endpoints
-#### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
 
-#### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+#### User:
 
-#### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Login route: 'login/' [POST] [registerd user required]
+- Register route: 'register/' [POST]
+- Index route: 'product/' [GET] [token required] + [admin required]
+- Show route: 'product/:id' (args: user id) [GET] [token required] + [admin required]
+
+#### Product:
+
+- Index route: 'product/' [GET] 
+- Show route: 'product/:id' (args: product id) [GET]
+- Create route: 'product/' [POST] [token required] + [admin required]
+- Update route: 'product/:id' (args: product id) [PUT] [token required] + [admin required]
+- Delete route: 'product/:id' (args: product id) [DELETE] [token required] + [admin required]
+
+#### Order:
+
+- Index route: 'order/' [GET] [token required] + [admin required]
+- Show route: 'order/:id' (args: order id) [GET] [token required]
+- Create route: 'order/' [POST]  [token required]
+- Update route: 'order/:id' (args: order id) [PUT] [token required] + [authorized user required]
+- Delete route: 'order/:id' (args: order id) [DELETE] [token required] + [authorized user required]
+
+- Show orders of user route: 'order/user/:id' (args: user id) [GET]  [token required] + [authorized user required] or [admin required]
 
 ## Data Shapes
+
 #### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+-  id: serial integer [primary key]
+- name: varchar
+- price:decimal
+- category: varchar
+- is_available: boolean [default=true]
 
 #### User
-- id
-- firstName
-- lastName
-- password
+- id: serial integer [primary key]
+- firstName: varchar
+- lastName: varchar
+- email: varchar
+- password: varchar
+- role:varchar [default=user]
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+- id: serial integer [primary key]
+- product_id integer [foreign key to product table]
+- quantity: integer
+- user_id integer [foreign key to user table]
+- total_price: decimal [price * quantity]
+- status: varchar [default=active]
 

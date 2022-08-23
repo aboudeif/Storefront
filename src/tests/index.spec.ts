@@ -50,6 +50,22 @@ describe ('test register new user', () => {
     });
   })
 
+  // test get user by id
+  describe ('test get user by id', () => {
+    it('should return return message: User retrieved successfully', async () => {
+      const response = await request.get(`/user/${testUser.id}`).auth(token, {type: 'bearer'});
+      expect(response.body.message).toBe('User retrieved successfully');
+    })
+  })
+
+  // test get all users
+  describe ('test get all users', () => {
+    it('should return return message: All users retrieved successfully', async () => {
+      const response = await request.get('/user').auth(token, {type: 'bearer'});
+      expect(response.body.message).toBe('All users retrieved successfully');
+    })
+  })
+
   // test add new product
   describe ('test add new product', () => {
     it('should return message: Product created successfully', async () => {

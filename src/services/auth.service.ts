@@ -1,3 +1,4 @@
+import { getAllUsers, getUserById } from './../models/user.model';
 import { User, createUser, getUserByEmail } from '../models/user.model'
 import { AuthData, TokenPayload, UserCredentials } from '../models/auth.model'
 import authConfig from '../auth'
@@ -41,6 +42,26 @@ export const loginService = async (credentials: UserCredentials): Promise<AuthDa
     throw new Error(error as string)
   }
 }
+
+export const getUserByIdService = async (id: number): Promise<User> => {
+  try {
+    const user = await getUserById(id)
+    if (!user) throw new Error('User not found')
+    return user
+  } catch (error) {
+    throw new Error(error as string)
+  }
+}
+
+export const getAllUsersService = async (): Promise<User[]> => {
+  try {
+    const users = await getAllUsers()
+    return users
+  } catch (error) {
+    throw new Error(error as string)
+  }
+}
+
 
 const generateToken = (user: User): string => {
   try {

@@ -10,6 +10,20 @@ export interface User {
   role?: string
 }
 
+export const getUserById = async (id
+: number): Promise<User> => {
+  const queryText = `SELECT * FROM users WHERE id = $1`
+  const data = await client.query(queryText, [id])
+
+  return data.rows[0]
+}
+
+export const getAllUsers = async (): Promise<User[]> => {
+  const queryText = `SELECT * FROM users`
+  const data = await client.query(queryText)
+
+  return data.rows
+}
 
 export const getUserByEmail = async (email: string): Promise<User> => {
   const queryText = `SELECT * FROM users WHERE email = $1`
