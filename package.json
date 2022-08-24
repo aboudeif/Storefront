@@ -8,7 +8,7 @@
     "build": "npx tsc",
     "jasmine": "jasmine",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "npm run build && npm run jasmine",
+    "test": "npm run build && set NODE_ENV=test&&db-migrate --env test up&&jasmine&&db-migrate --env test reset",
     "lint": "eslint src/.",
     "tsc": "tsc",
     "prettier": "prettier --config .prettierrc src/. --write"

@@ -51,13 +51,21 @@ This repo contains a basic Node and Express app to get you started in constructi
 
 6. create a database with name *store*
 
-`CREATE DATABASE store;`
+```
+CREATE DATABASE store;
+CREATE DATABASE store_test;
+
+```
 
 7. grant all privileges for user on database
 
 `\c store`
 
 `GRANT ALL PRIVILEGES ON DATABASE store TO store_admin;`
+
+`\c store_test`
+
+`GRANT ALL PRIVILEGES ON DATABASE store_test TO store_admin;`
 
 8. set .env file
 
@@ -71,6 +79,7 @@ POSTGRES_PORT=5432
 POSTGRES_USER=store_admin
 POSTGRES_PASSWORD=dataPassword
 POSTGRES_DB=store
+POSTGRES_TEST_DB=store_test
 
 BCRYPT_ROUNDS=10
 BCRYPT_PASSWORD_PAPER_KEY=storePaperKey
