@@ -12,8 +12,8 @@ import {
 // get order by id
 export const getOrderByIdService = async (id: number): Promise<Order> => {
   try {
-    const order = await getOrderById(id)
-    return order
+  const order = await getOrderById(id)
+  return order
   } catch (error) {
     throw new Error(`${error}`)
   }
