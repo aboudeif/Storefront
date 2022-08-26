@@ -67,9 +67,8 @@ export const promoteToAdmin = async (user: User): Promise<User> => {
 }
 
 // delete user
-export const deleteUser = async (user: User): Promise<User> => {
+export const deleteUser = async (id: number): Promise<User> => {
   try{
-  const { id } = user
   const queryText = `DELETE FROM users WHERE id = $1 RETURNING *`
   const data = await client.query(queryText, [id])
   return data.rows[0]

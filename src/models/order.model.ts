@@ -4,7 +4,6 @@ export interface Order {
   id?: number
   user_id: number
   product_id: number
-  total_price?: number
   status?: string
 }
 
@@ -33,9 +32,9 @@ export const getAllOrders = async (): Promise<Order[]> => {
 // create order
 export const createOrder = async (order: Order): Promise<Order> => {
   try {
-  const { user_id, product_id, total_price } = order
-  const queryText = `INSERT INTO orders (user_id, product_id, total_price) VALUES ($1, $2, $3) RETURNING *`
-  const data = await client.query(queryText, [user_id, product_id, total_price])
+  const { user_id, product_id } = order
+  const queryText = `INSERT INTO orders (user_id, product_id) VALUES ($1, $2) RETURNING *`
+  const data = await client.query(queryText, [user_id, product_id])
   return data.rows[0]
 } catch (error) {
   throw new Error(`${error}`)
@@ -45,9 +44,9 @@ export const createOrder = async (order: Order): Promise<Order> => {
 // update order
 export const updateOrder = async (order: Order): Promise<Order> => {
   try{
-  const { user_id, product_id, total_price, status, id } = order
-  const queryText = `UPDATE orders SET user_id = $1, product_id = $2 total_price = $3, status = $4 WHERE id = $5 RETURNING *`
-  const data = await client.query(queryText, [user_id, product_id, total_price, status, id])
+  const { user_id, product_id, status, id } = order
+  const queryText = `UPDATE orders SET user_id = $1, product_id = $2, status = $3 WHERE id = $4 RETURNING *`
+  const data = await client.query(queryText, [user_id, product_id, status, id])
   return data.rows[0]
 } catch (error) {
   throw new Error(`${error}`)

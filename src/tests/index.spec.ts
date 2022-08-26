@@ -145,6 +145,22 @@ describe('test show order by id', () => {
   })
 })
 
+// test update order
+describe('test update order', () => {
+  it('should return message: Order updated successfully', async () => {
+    const response = await request
+    .put(`/order/${testOrder.id}`)
+    .send({
+      id: testOrder.id,
+      user_id: testUser.id,
+      product_id: testProduct.id,
+      status: 'completed'
+    })
+    .auth(token, { type: 'bearer' })
+    expect(response.body.message).toBe('Order updated successfully')
+  })
+})
+
 // test delete order
 describe('test delete order', () => {
   it('should return message: Order deleted successfully', async () => {

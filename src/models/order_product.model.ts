@@ -65,7 +65,7 @@ export const deleteOrderProduct = async (id: number): Promise<OrderProduct> => {
 }
 
 // use join to get user product orders
-export const getUserProductOrders = async (
+export const getUserOrderProducts = async (
   user_id: number
 ): Promise<OrderProduct[]> => {
   try {

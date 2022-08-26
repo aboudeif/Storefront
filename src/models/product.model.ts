@@ -62,5 +62,15 @@ export const deleteProduct = async (id: number): Promise<Product> => {
   return data.rows[0]
 } catch (error) {
   throw new Error(`${error}`)
+}}
+
+// get product price
+export const getProductPrice = async (id: number): Promise<Product> => {
+  try{
+  const queryText = `SELECT price FROM products WHERE id = $1`
+  const data = await client.query(queryText, [id])
+  return data.rows[0]
+} catch (error) {
+  throw new Error(`${error}`)
 }
 }

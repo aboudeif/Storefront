@@ -32,9 +32,6 @@ export const getAllOrdersService = async (): Promise<Order[]> => {
 // create order
 export const createOrderService = async (order: Order): Promise<Order> => {
   try {
-    const product = await getProductById(order.product_id)
-    const price = product.price
-    order.total_price = order.quantity * price
     const newOrder = await createOrder(order)
     return newOrder
   } catch (error) {

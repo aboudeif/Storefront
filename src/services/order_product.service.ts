@@ -6,64 +6,64 @@ import {
   createOrderProduct,
   updateOrderProduct,
   deleteOrderProduct,
-  getOrderProductsByUserId
+  getUserOrderProducts
 } from "../models/order_product.model";
 
-// get order_product by id
-export const getOrder_productByIdService = async (id: number): Promise<Order_product> => {
+// get orderProduct by id
+export const getOrderProductByIdService = async (id: number): Promise<OrderProduct> => {
   try {
-    const order_product = await getOrder_productById(id)
-    return order_product
+    const orderProduct = await getOrderProductById(id)
+    return orderProduct
   } catch (error) {
     throw new Error(`${error}`)
   }
 }
 
-// index all order_products
-export const getAllOrder_productsService = async (): Promise<Order_product[]> => {
+// index all orderProducts
+export const getAllOrderProductsService = async (): Promise<OrderProduct[]> => {
   try {
-    const order_products = await getAllOrder_products()
-    return order_products
+    const orderProducts = await getAllOrderProducts()
+    return orderProducts
   } catch (error) {
     throw new Error(`${error}`)
   }
 }
 
-// create order_product
-export const createOrder_productService = async (order_product: Order_product): Promise<Order_product> => {
+// create orderProduct
+export const createOrderProductService = async (orderProduct: OrderProduct): Promise<OrderProduct> => {
   try {
-    const newOrder_product = await createOrder_product(order_product)
-    return newOrder_product
+    const newOrderProduct = await createOrderProduct(orderProduct)
+    return newOrderProduct
   } catch (error) {
     throw new Error(`${error}`)
   }
 }
 
-// update order_product
-export const updateOrder_productService = async (order_product: Order_product): Promise<Order_product> => {
+// update orderProduct
+export const updateOrderProductService = async (orderProduct: OrderProduct): Promise<OrderProduct> => {
   try {
-    const updatedOrder_product = await updateOrder_product(order_product)
-    return updatedOrder_product
+    const updatedOrderProduct = await updateOrderProduct(orderProduct)
+    return updatedOrderProduct
   } catch (error) {
     throw new Error(`${error}`)
   }
 }
 
-// delete order_product
-export const deleteOrder_productService = async (id: number): Promise<Order_product> => {
+// delete orderProduct
+export const deleteOrderProductService = async (id: number): Promise<OrderProduct> => {
   try {
-    const deletedOrder_product = await deleteOrder_product(id)
-    return deletedOrder_product
+    const deletedOrderProduct = await deleteOrderProduct(id)
+    return deletedOrderProduct
   } catch (error) {
     throw new Error(`${error}`)
   }
 }
 
-// get order_products by user id
-export const getOrder_productsByUserIdService = async (id: number): Promise<Order_product[]> => {
+// get orderProducts by user id
+export const getUserOrderProductsService = async (id: number): Promise<OrderProduct[]> => {
   try {
-    const order_products = await getOrder_productsByUserId(id)
-    return order_products
+    const orderProducts = await getUserOrderProducts(id)
+    return orderProducts
   } catch (error) {
     throw new Error(`${error}`)
   }

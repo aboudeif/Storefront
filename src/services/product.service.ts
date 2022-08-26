@@ -1,10 +1,12 @@
+import { getProductPrice } from './../models/product.model';
 import {
   Product,
   getProductById,
   getAllProducts,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  getProductPrice,
 } from '../models/product.model'
 
 // get product by id
@@ -52,6 +54,16 @@ export const deleteProductService = async (id: number): Promise<Product> => {
   try {
     const deletedProduct = await deleteProduct(id)
     return deletedProduct
+  } catch (error) {
+    throw new Error(`${error}`)
+  }
+}
+
+// get product price
+export const getProductPriceService = async (id: number): Promise<Product> => {
+  try {
+    const product = await getProductPrice(id)
+    return product
   } catch (error) {
     throw new Error(`${error}`)
   }
