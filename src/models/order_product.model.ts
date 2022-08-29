@@ -76,3 +76,14 @@ export const getUserOrderProducts = async (
     throw new Error(`${error}`);
   }
 }
+
+// get order products of an order if exists
+export const getOrderProductsIfExists = async (order_id: number): Promise<OrderProduct[]> => {
+  try {
+    const queryText = `SELECT * FROM order_products WHERE order_id = $1`;
+    const data = await client.query(queryText, [order_id]);
+    return data.rows;
+  } catch (error) {
+    throw new Error(`${error}`);
+  }
+}

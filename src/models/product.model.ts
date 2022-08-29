@@ -65,7 +65,7 @@ export const deleteProduct = async (id: number): Promise<Product> => {
 }}
 
 // get product price
-export const getProductPrice = async (id: number): Promise<Product> => {
+export const getProductPrice = async (id: number): Promise<number> => {
   try{
   const queryText = `SELECT price FROM products WHERE id = $1`
   const data = await client.query(queryText, [id])

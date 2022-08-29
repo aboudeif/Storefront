@@ -9,8 +9,7 @@ import {
 } from '../handlers/order.handler'
 import {
   verifyTokenMiddleware,
-  verifyUserAuthorizationMiddleware,
-  verifyAdminOrSelfMiddleware,
+  verifyOrderOwner,
   verifyAdminMiddleware
 } from '../middlewares/auth.middleware'
 
@@ -23,10 +22,10 @@ orderRouter.get('/:id', verifyTokenMiddleware, getOrderByIdHandler)
 // create order
 orderRouter.post('/', verifyTokenMiddleware, createOrderHandler)
 // update order
-orderRouter.put('/:id', verifyTokenMiddleware, verifyUserAuthorizationMiddleware, updateOrderHandler)
+orderRouter.put('/:id', verifyTokenMiddleware, verifyOrderOwner, updateOrderHandler)
 // delete order
-orderRouter.delete('/:id', verifyTokenMiddleware, verifyUserAuthorizationMiddleware, deleteOrderHandler)
+orderRouter.delete('/:id', verifyTokenMiddleware, verifyOrderOwner, deleteOrderHandler)
 // get orders by user id
-orderRouter.get('/user/:id', verifyTokenMiddleware, verifyAdminOrSelfMiddleware, getOrdersByUserIdHandler)
+orderRouter.get('/user/:id', verifyTokenMiddleware, verifyOrderOwner, getOrdersByUserIdHandler)
 
 export default orderRouter

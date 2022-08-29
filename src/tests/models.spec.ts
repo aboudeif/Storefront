@@ -91,9 +91,7 @@ describe("test order models", () => {
   // test model add new order
   it(`should return order with user_id: ${testUser.id}`, async () => {
     const response = await createOrder({
-      user_id: testUser.id as unknown as number,
-      product_id: testProduct.id as unknown as number, 
-      
+      user_id: testUser.id as unknown as number
     })
     expect(response.user_id).toBe(testUser.id as unknown as number)
     testOrder = response
@@ -116,7 +114,6 @@ describe("test order models", () => {
     const response = await updateOrder({
       id: testOrder.id,
       user_id: testOrder.user_id,
-      product_id: testOrder.product_id,
       status: "completed"
     })
     expect(response.status).toBe("completed")
@@ -139,7 +136,7 @@ describe("test order product models", () => {
       order_id: testOrder.id as unknown as number,
       product_id: testProduct.id as unknown as number,
       quantity: 1,
-      price: testProduct.price
+      price: testProduct.price as unknown as number
       })
     expect(response.order_id).toBe(testOrder.id as unknown as number)
     testOrderProduct = response
@@ -180,7 +177,7 @@ describe("test order product models", () => {
     const response = await deleteOrderProduct(testOrderProduct.id as unknown as number)
     expect(response.order_id).toBe(testOrder.id as unknown as number)
   })
-}),
+})
 
 
 // test delete user models

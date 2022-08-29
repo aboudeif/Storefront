@@ -1,4 +1,4 @@
-import { getProductPrice } from './../models/product.model';
+
 import {
   Product,
   getProductById,
@@ -60,7 +60,7 @@ export const deleteProductService = async (id: number): Promise<Product> => {
 }
 
 // get product price
-export const getProductPriceService = async (id: number): Promise<Product> => {
+export const getProductPriceService = async (id: number): Promise<number> => {
   try {
     const product = await getProductPrice(id)
     return product

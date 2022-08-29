@@ -4,11 +4,13 @@ import supertest from 'supertest'
 import app from '../server'
 import { Product } from '../models/product.model'
 import { Order } from '../models/order.model'
+import { OrderProduct } from '../models/order_product.model'
 
 const request = supertest(app)
 let testUser: User
 let testProduct: Product
 let testOrder: Order
+let testOrderProduct: OrderProduct
 let token: string
 
 // test the root path
@@ -119,10 +121,6 @@ describe('test add new order', () => {
   it('should return message: Order created successfully', async () => {
     const response = await request
       .post('/order')
-      .send({
-        product_id: testProduct.id,
-        quantity: 1
-      })
       .auth(token, { type: 'bearer' })
     expect(response.body.message).toBe('Order created successfully')
     testOrder = response.body.order
@@ -153,13 +151,26 @@ describe('test update order', () => {
     .send({
       id: testOrder.id,
       user_id: testUser.id,
-      product_id: testProduct.id,
       status: 'completed'
     })
     .auth(token, { type: 'bearer' })
     expect(response.body.message).toBe('Order updated successfully')
   })
 })
+
+// test add new order product
+describe('test add new product order', () => {
+  it('should return message: Order product created successfully', async () => {
+    const response = await request
+      .post('/orderProduct')
+      .auth(token, { type: 'bearer' })
+    expect(response.body.message).toBe('Order product created successfully')
+    testOrderProduct = response.body.orderProduct
+  })
+})
+
+// test get orderProduct by id
+
 
 // test delete order
 describe('test delete order', () => {
@@ -178,6 +189,6 @@ describe('test delete product', () => {
 
   // delete test user
   afterAll(async () => {
-    await deleteUser(testUser)
+    await deleteUser(Number(testUser.id))
   })
 })

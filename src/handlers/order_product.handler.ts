@@ -45,8 +45,8 @@ export const getAllOrderProductsHandler = async (req: Request, res: Response): P
 // create orderProduct
 export const createOrderProductHandler = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { order_id, product_id } = req.body
-    const orderProduct = await createOrderProductService({ order_id, product_id })
+    const { order_id, product_id, quantity, price } = req.body
+    const orderProduct = await createOrderProductService({ order_id, product_id, quantity, price }, res.locals.user.id)
     res.send({
       message: 'OrderProduct created successfully',
       orderProduct
@@ -59,9 +59,10 @@ export const createOrderProductHandler = async (req: Request, res: Response): Pr
 // update orderProduct
 export const updateOrderProductHandler = async (req: Request, res: Response): Promise<void> => {
   try {
+    const id  = req.params as unknown as number
     const { order_id, product_id, quantity } = req.body
     const price = await getProductPriceService(product_id)
-    const orderProduct = await updateOrderProductService({ order_id, product_id, quantity, price })
+    const orderProduct = await updateOrderProductService({ order_id, product_id, quantity, price, id })
     res.send({
       message: 'OrderProduct updated successfully',
       orderProduct
