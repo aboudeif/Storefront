@@ -1,4 +1,4 @@
-import { User, promoteToAdmin, deleteUser } from './../models/user.model'
+import { User, promoteToAdmin, deleteUser } from '../models/user.model'
 
 import supertest from 'supertest'
 import app from '../server'
@@ -158,19 +158,65 @@ describe('test update order', () => {
   })
 })
 
+// test get orders by user id
+describe('test index orders by user id', () => {
+  it('should return message: Orders retrieved successfully', async () => {
+    const response = await request.get(`/order/user/${testUser.id}`).auth(token, { type: 'bearer' })
+    expect(response.body.message).toBe('Orders retrieved successfully')
+  })
+})
+
 // test add new order product
 describe('test add new product order', () => {
   it('should return message: Order product created successfully', async () => {
     const response = await request
       .post('/orderProduct')
+      .send({order_id: testOrder.id, quantity:1, product_id: testProduct.id})
       .auth(token, { type: 'bearer' })
     expect(response.body.message).toBe('Order product created successfully')
     testOrderProduct = response.body.orderProduct
   })
 })
 
-// test get orderProduct by id
+// test get order Product by id
+describe('test show order product by id', () => {
+  it('should return message: order product retrieved successfully', async () => {
+    const response = await request.get(`/orderProduct/${testOrderProduct.id}`).auth(token, { type: 'bearer' })
+    expect(response.body.message).toBe('Order product retrieved successfully')
+  })
+})
 
+// test index all order Products
+describe('test index all order Products', () => {
+  it('should return message: All order products retrieved successfully', async () => {
+    const response = await request.get('/orderProduct').auth(token, { type: 'bearer' })
+    expect(response.body.message).toBe('All order products retrieved successfully')
+  })
+})
+
+// test update order Product
+describe('test update order product', () => {
+  it('should return message: Order product updated successfully', async () => {
+    const response = await request
+      .put(`/orderProduct/${testOrderProduct.id}`)
+      .auth(token, { type: 'bearer' })
+      .send({
+        order_id: testOrderProduct.order_id,
+        price: testOrderProduct.price,
+        product_id: testOrderProduct.product_id,
+        quantity: 2
+      })
+    expect(response.body.message).toBe('Order product updated successfully')
+  })
+})
+
+// test delete orderProduct
+describe('test delete order product', () => {
+  it('should return message: Order product deleted successfully', async () => {
+    const response = await request.delete(`/orderProduct/${testOrderProduct.id}`).auth(token, { type: 'bearer' })
+    expect(response.body.message).toBe('Order product deleted successfully')
+  })
+})
 
 // test delete order
 describe('test delete order', () => {

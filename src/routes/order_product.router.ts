@@ -8,14 +8,14 @@ import {
   deleteOrderProductHandler,
   getUserOrderProductsHandler
 } from '../handlers/order_product.handler'
-import { verifyTokenMiddleware, verifyProductOrderOwner } from '../middlewares/auth.middleware'
+import { verifyTokenMiddleware, verifyProductOrderOwner, verifyAdminMiddleware } from '../middlewares/auth.middleware'
 
 const orderProductRouter = express.Router()
 
 // get orderProduct by id
 orderProductRouter.get('/:id', verifyTokenMiddleware, verifyProductOrderOwner, getOrderProductByIdHandler)
 // index all orderProducts
-orderProductRouter.get('/', verifyTokenMiddleware, getAllOrderProductsHandler)
+orderProductRouter.get('/', verifyTokenMiddleware, verifyAdminMiddleware, getAllOrderProductsHandler)
 // create orderProduct
 orderProductRouter.post('/', verifyTokenMiddleware, createOrderProductHandler)
 // update orderProduct

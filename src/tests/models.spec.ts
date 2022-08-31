@@ -13,10 +13,10 @@ let testUser: User = {
 let testProduct: Product = {
   name: "test",
   price: 100,
-  category: "test",
+  category: "test"
 }
-let testOrder: Order
-let testOrderProduct: OrderProduct
+let testOrder: Order;
+let testOrderProduct: OrderProduct;
 
 // test user models
 describe("test user models", () => {
@@ -140,64 +140,67 @@ describe("test order product models", () => {
       })
     expect(response.order_id).toBe(testOrder.id as unknown as number)
     testOrderProduct = response
-  }),
+  })
 
   // test model get order product by id
   it(`should return order product with order_id: ${testOrder.id}`, async () => {
     const response = await getOrderProductById(testOrderProduct.id as unknown as number)
     expect(response.order_id).toBe(testOrder.id as unknown as number)
-  }),
+  })
 
   // test model get all order products
   it("should return an array of order products", async () => {
     const response = await getAllOrderProducts()
     expect(response).toBeInstanceOf(Array<OrderProduct>)
-  }),
+  })
 
   // test model update order product
   it(`should return order product with order_id: ${testOrder.id}`, async () => {
     const response = await updateOrderProduct({
-      id: testOrderProduct.id,
-      order_id: testOrderProduct.order_id,
-      product_id: testOrderProduct.product_id,
+      id: testOrderProduct.id as unknown as number,
+      order_id: testOrderProduct.order_id as unknown as number,
+      product_id: testOrderProduct.product_id as unknown as number,
       quantity: 2,
-      price: testProduct.price
+      price: testProduct.price as unknown as number
     })
-    expect(response.price).toBe(testOrder.id as unknown as number)
-  }),
+    expect(response.price).toBe(Number(testOrder.id))
+  })
 
   // test model get user order products
   it("should return an array of order products", async () => {
     const response = await getUserOrderProducts(testUser.id as unknown as number)
     expect(response).toBeInstanceOf(Array<OrderProduct>)
-  }),
+  })
 
   // test model delete order product
   it(`should return order product with order_id: ${testOrder.id}`, async () => {
-    const response = await deleteOrderProduct(testOrderProduct.id as unknown as number)
-    expect(response.order_id).toBe(testOrder.id as unknown as number)
+    const response = await deleteOrderProduct(Number(testOrderProduct.id))
+    expect(response.order_id).toBe(Number(testOrder.id))
   })
 })
 
 
 // test delete user models
 describe("test delete user models", () => {
-
+  
   // test model delete user
   it(`should return user with id: ${testUser.id}`, async () => {
     const response = await deleteUser(testUser.id as unknown as number)
     expect(response.id).toBe(testUser.id)
-  }),
+  })
 
   // test model delete order
   it(`should return order with id: ${testOrder.id}`, async () => {
     const response = await deleteOrder(testOrder.id as unknown as number)
     expect(response.id).toBe(testOrder.id as unknown as number)
-  }),
+  })
 
   // test model delete product
   it(`should return product with id: ${testProduct.id}`, async () => {
     const response = await deleteProduct(testProduct.id as unknown as number)
     expect(response.id).toBe(testProduct.id)
   })
+
 })
+
+

@@ -15,7 +15,7 @@ export const getOrderProductByIdHandler = async (req: Request, res: Response): P
     const { id } = req.params
     const orderProduct = await getOrderProductByIdService(+id)
     res.send({
-      message: 'OrderProduct retrieved successfully',
+      message: 'Order product retrieved successfully',
       orderProduct
     })
   } catch (error: unknown) {
@@ -31,7 +31,7 @@ export const getAllOrderProductsHandler = async (req: Request, res: Response): P
   try {
     const orderProducts = await getAllOrderProductsService()
     res.send({
-      message: 'All orderProducts retrieved successfully',
+      message: 'All order products retrieved successfully',
       orderProducts
     })
   } catch (error: unknown) {
@@ -48,7 +48,7 @@ export const createOrderProductHandler = async (req: Request, res: Response): Pr
     const { order_id, product_id, quantity, price } = req.body
     const orderProduct = await createOrderProductService({ order_id, product_id, quantity, price }, res.locals.user.id)
     res.send({
-      message: 'OrderProduct created successfully',
+      message: 'Order product created successfully',
       orderProduct
     })
   } catch (error) {
@@ -59,12 +59,11 @@ export const createOrderProductHandler = async (req: Request, res: Response): Pr
 // update orderProduct
 export const updateOrderProductHandler = async (req: Request, res: Response): Promise<void> => {
   try {
-    const id  = req.params as unknown as number
-    const { order_id, product_id, quantity } = req.body
-    const price = await getProductPriceService(product_id)
-    const orderProduct = await updateOrderProductService({ order_id, product_id, quantity, price, id })
+    const { order_id, product_id, quantity, price } = req.body
+    const id = req.params.id as unknown as number
+    const orderProduct = await updateOrderProductService({ id, order_id, product_id, quantity, price })
     res.send({
-      message: 'OrderProduct updated successfully',
+      message: 'Order product updated successfully',
       orderProduct
     })
   } catch (error) {
@@ -78,7 +77,7 @@ export const deleteOrderProductHandler = async (req: Request, res: Response): Pr
     const { id } = req.params
     const orderProduct = await deleteOrderProductService(+id)
     res.send({
-      message: 'OrderProduct deleted successfully',
+      message: 'Order product deleted successfully',
       orderProduct
     })
   } catch (error) {
@@ -92,7 +91,7 @@ export const getUserOrderProductsHandler = async (req: Request, res: Response): 
     const { id } = req.params
     const orderProducts = await getUserOrderProductsService(+id)
     res.send({
-      message: 'User orderProducts retrieved successfully',
+      message: 'User order products retrieved successfully',
       orderProducts
     })
   } catch (error: unknown) {

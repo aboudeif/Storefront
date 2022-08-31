@@ -42,10 +42,10 @@ export const createOrderProduct = async (
 }
 
 export const updateOrderProduct = async (
-  order_product: OrderProduct
+  orderproduct: OrderProduct
 ): Promise<OrderProduct> => {
   try {
-    const { order_id, product_id, quantity, price, id } = order_product;
+    const { order_id, product_id, quantity, price, id } = orderproduct;
     const queryText = `UPDATE order_products SET order_id = $1, product_id = $2, quantity = $3, price = $4 WHERE id = $5 RETURNING *`;
     const data = await client.query(queryText, [order_id, product_id, quantity, price, id]);
     return data.rows[0];
