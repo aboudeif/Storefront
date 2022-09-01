@@ -25,13 +25,22 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index route: 'order/' [GET] [token required] + [admin required]
 - Show route: 'order/:id' (args: order id) [GET] [token required]
 - Create route: 'order/' [POST]  [token required]
-- Update route: 'order/:id' (args: order id) [PUT] [token required] + [authorized user required]
-- Delete route: 'order/:id' (args: order id) [DELETE] [token required] + [authorized user required]
+- Update route: 'order/:id' (args: order id) [PUT] [token required] + [Order Owner or admin required]
+- Delete route: 'order/:id' (args: order id) [DELETE] [token required] + [Order Owner or admin required]
 
-- Show orders of user route: 'order/user/:id' (args: user id) [GET]  [token required] + [authorized user required] or [admin required]
+- Show orders of user route: 'order/user/:id' (args: user id) [GET]  [token required] + [Order Owner or admin required] or [admin required]
 
-## Data Shapes
+#### Order product:
 
+- Index route: 'orderProduct/' [GET] [token required] + [admin required]
+- Show route: 'orderProduct/:id' (args: orderProduct id) [GET] [token required] [Order Product Owner or admin required]
+- Create route: 'orderProduct/' [POST]  [token required]
+- Update route: 'orderProduct/:id' (args: orderProduct id) [PUT] [token required] + [Order Product Owner or admin required]
+- Delete route: 'orderProduct/:id' (args: orderProduct id) [DELETE] [token required] + [Order Product Owner or admin required]
+
+- Show order products of user route: 'orderProduct/user/:id' (args: user id) [GET]  [token required] + [Order Products Owner or admin required]
+
+## Data Shape
 #### Product
 -  id: serial integer [primary key]
 - name: varchar
@@ -49,8 +58,12 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Orders
 - id: serial integer [primary key]
-- product_id integer [foreign key to product table]
-- quantity: integer
 - user_id integer [foreign key to user table]
-- total_price: decimal [price * quantity]
 - status: varchar [default=active]
+
+#### Order Products
+- id: serial integer [primary key]
+- product_id integer [foreign key to product table]
+- order_id integer [foreign key to order table]
+- quantity: integer
+- price: decimal

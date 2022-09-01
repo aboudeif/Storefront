@@ -87,30 +87,6 @@ export const verifyAdminMiddleware = (req: Request, res: Response, next: NextFun
     })
 }
 
-// // verify user authorization
-// export const verifyUserAuthorizationMiddleware = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ): Promise<void> => {
-//   const order = await getOrderByIdService(Number(req.params.id))
-//   if (res.locals.user.id === order.user_id) next()
-//   else
-//     res.status(403).send({
-//       message: 'Unauthorized'
-//     })
-// }
-
-// // verify if admin or authorized user
-// export const verifyAdminOrSelfMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//   const order = await getOrderByIdService(Number(req.params.id))
-//   if (res.locals.user.role === 'admin' || res.locals.user.id === order.user_id) next()
-//   else
-//     res.status(403).send({
-//       message: 'Unauthorized'
-//     })
-// }
-
 // verify if user is order owner or admin
 export const verifyOrderOwner = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const order = await getOrderByIdService(Number(req.params.id))
@@ -121,8 +97,8 @@ export const verifyOrderOwner = async (req: Request, res: Response, next: NextFu
     })
 }
 
-// verify if user is product order owner or admin
-export const verifyProductOrderOwner = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+// verify if user is order product owner or admin
+export const verifyOrderProductOwner = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const orderProduct = await getOrderProductByIdService(Number(req.params.id))
   const order = await getOrderByIdService(orderProduct.order_id)
   if ((res.locals.user.id === order.user_id) || (res.locals.user.role === 'admin')) next()
