@@ -7,7 +7,6 @@ import {
   deleteOrderProductService,
   getUserOrderProductsService
 } from '../services/order_product.service'
-import { getProductPriceService } from '../services/product.service'
 
 // get orderProduct by id
 export const getOrderProductByIdHandler = async (req: Request, res: Response): Promise<void> => {
