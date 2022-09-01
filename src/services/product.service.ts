@@ -1,4 +1,3 @@
-
 import {
   Product,
   getProductById,
@@ -6,7 +5,7 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
-  getProductPrice,
+  getProductPrice
 } from '../models/product.model'
 
 // get product by id

@@ -1,4 +1,3 @@
-
 import {
   Order,
   getOrderById,
@@ -12,8 +11,8 @@ import {
 // get order by id
 export const getOrderByIdService = async (id: number): Promise<Order> => {
   try {
-  const order = await getOrderById(id)
-  return order
+    const order = await getOrderById(id)
+    return order
   } catch (error) {
     throw new Error(`${error}`)
   }
@@ -52,8 +51,8 @@ export const updateOrderService = async (order: Order): Promise<Order> => {
 // delete order
 export const deleteOrderService = async (id: number): Promise<Order> => {
   try {
-      const deletedOrder = await deleteOrder(id)
-      return deletedOrder
+    const deletedOrder = await deleteOrder(id)
+    return deletedOrder
   } catch (error) {
     throw new Error(`${error}`)
   }

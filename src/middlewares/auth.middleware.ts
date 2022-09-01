@@ -1,11 +1,10 @@
-
 import { getOrderByIdService } from './../services/order.service'
 import { getUserByEmail } from '../models/user.model'
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import { TokenPayload } from '../models/auth.model'
 import authConfig from '../auth'
-import { getOrderProductByIdService } from '../services/order_product.service';
+import { getOrderProductByIdService } from '../services/order_product.service'
 
 // signin validation
 export const signinMiddleware = (req: Request, res: Response, next: NextFunction): void => {

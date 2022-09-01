@@ -119,9 +119,7 @@ describe('test update product', () => {
 // test create new order
 describe('test add new order', () => {
   it('should return message: Order created successfully', async () => {
-    const response = await request
-      .post('/order')
-      .auth(token, { type: 'bearer' })
+    const response = await request.post('/order').auth(token, { type: 'bearer' })
     expect(response.body.message).toBe('Order created successfully')
     testOrder = response.body.order
   })
@@ -147,13 +145,13 @@ describe('test show order by id', () => {
 describe('test update order', () => {
   it('should return message: Order updated successfully', async () => {
     const response = await request
-    .put(`/order/${testOrder.id}`)
-    .send({
-      id: testOrder.id,
-      user_id: testUser.id,
-      status: 'completed'
-    })
-    .auth(token, { type: 'bearer' })
+      .put(`/order/${testOrder.id}`)
+      .send({
+        id: testOrder.id,
+        user_id: testUser.id,
+        status: 'completed'
+      })
+      .auth(token, { type: 'bearer' })
     expect(response.body.message).toBe('Order updated successfully')
   })
 })
@@ -171,7 +169,7 @@ describe('test add new product order', () => {
   it('should return message: Order product created successfully', async () => {
     const response = await request
       .post('/orderProduct')
-      .send({order_id: testOrder.id, quantity:1, product_id: testProduct.id})
+      .send({ order_id: testOrder.id, quantity: 1, product_id: testProduct.id })
       .auth(token, { type: 'bearer' })
     expect(response.body.message).toBe('Order product created successfully')
     testOrderProduct = response.body.orderProduct
@@ -197,15 +195,12 @@ describe('test index all order Products', () => {
 // test update order Product
 describe('test update order product', () => {
   it('should return message: Order product updated successfully', async () => {
-    const response = await request
-      .put(`/orderProduct/${testOrderProduct.id}`)
-      .auth(token, { type: 'bearer' })
-      .send({
-        order_id: testOrderProduct.order_id,
-        price: testOrderProduct.price,
-        product_id: testOrderProduct.product_id,
-        quantity: 2
-      })
+    const response = await request.put(`/orderProduct/${testOrderProduct.id}`).auth(token, { type: 'bearer' }).send({
+      order_id: testOrderProduct.order_id,
+      price: testOrderProduct.price,
+      product_id: testOrderProduct.product_id,
+      quantity: 2
+    })
     expect(response.body.message).toBe('Order product updated successfully')
   })
 })

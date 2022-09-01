@@ -1,7 +1,7 @@
-import { getProductById } from './../models/product.model';
-import { createOrderService, deleteOrderService } from './order.service';
+import { getProductById } from './../models/product.model'
+import { createOrderService, deleteOrderService } from './order.service'
 
-import { 
+import {
   OrderProduct,
   getOrderProductById,
   getAllOrderProducts,
@@ -10,11 +10,8 @@ import {
   deleteOrderProduct,
   getUserOrderProducts,
   getOrderProductsIfExists
-} from "../models/order_product.model";
-import {
-  getOrderIfActive
-} from '../models/order.model'
-
+} from '../models/order_product.model'
+import { getOrderIfActive } from '../models/order.model'
 
 // get orderProduct by id
 export const getOrderProductByIdService = async (id: number): Promise<OrderProduct> => {
@@ -40,8 +37,8 @@ export const getAllOrderProductsService = async (): Promise<OrderProduct[]> => {
 export const createOrderProductService = async (orderProduct: OrderProduct, user_id: number): Promise<OrderProduct> => {
   try {
     let neworder = await getOrderIfActive(user_id)
-    if(!neworder) {
-      neworder = await createOrderService({user_id})
+    if (!neworder) {
+      neworder = await createOrderService({ user_id })
     }
     orderProduct.order_id = Number(neworder.id)
     const product = await getProductById(orderProduct.product_id)
@@ -68,7 +65,7 @@ export const deleteOrderProductService = async (id: number): Promise<OrderProduc
   try {
     const deletedOrderProduct = await deleteOrderProduct(id)
     const existOrderProduct = await getOrderProductsIfExists(deletedOrderProduct.order_id)
-    if(!existOrderProduct) {
+    if (!existOrderProduct) {
       await deleteOrderService(deletedOrderProduct.order_id)
     }
     return deletedOrderProduct
@@ -86,5 +83,3 @@ export const getUserOrderProductsService = async (id: number): Promise<OrderProd
     throw new Error(`${error}`)
   }
 }
-
-

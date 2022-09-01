@@ -7,11 +7,7 @@ import {
   deleteOrderHandler,
   getOrdersByUserIdHandler
 } from '../handlers/order.handler'
-import {
-  verifyTokenMiddleware,
-  verifyOrderOwner,
-  verifyAdminMiddleware
-} from '../middlewares/auth.middleware'
+import { verifyTokenMiddleware, verifyOrderOwner, verifyAdminMiddleware } from '../middlewares/auth.middleware'
 
 const orderRouter = express.Router()
 
