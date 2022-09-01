@@ -89,21 +89,29 @@ export const verifyAdminMiddleware = (req: Request, res: Response, next: NextFun
 
 // verify if user is order owner or admin
 export const verifyOrderOwner = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const order = await getOrderByIdService(Number(req.params.id))
-  if ((res.locals.user.id === order.user_id) || (res.locals.user.role === 'admin')) next()
-  else
-    res.status(403).send({
-      message: 'Unauthorized'
+  try {
+    const order = await getOrderByIdService(Number(req.params.id))
+    if (!order) throw new Error('Order not found')
+    if (order.user_id !== res.locals.user.id && res.locals.user.role !== 'admin') throw new Error('Unauthorized')
+    next()
+  } catch (error) {
+    res.status(400).send({
+      errors: error
     })
+  }
 }
 
 // verify if user is order product owner or admin
 export const verifyOrderProductOwner = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const orderProduct = await getOrderProductByIdService(Number(req.params.id))
-  const order = await getOrderByIdService(orderProduct.order_id)
-  if ((res.locals.user.id === order.user_id) || (res.locals.user.role === 'admin')) next()
-  else
-    res.status(403).send({
-      message: 'Unauthorized'
+  try {
+    const orderProduct = await getOrderProductByIdService(Number(req.params.id))
+    if (!orderProduct) throw new Error('Order product not found')
+    const order = await getOrderByIdService(orderProduct.order_id)
+    if (order.user_id !== res.locals.user.id && res.locals.user.role !== 'admin') throw new Error('Unauthorized')
+    next()
+  } catch (error) {
+    res.status(400).send({
+      errors: error
     })
+  }
 }
