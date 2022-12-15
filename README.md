@@ -22,9 +22,9 @@ This repo contains a basic Node and Express app to get you started in constructi
 
 ## Ports
 
-- Project web server works on port 3000 as provided in .env file
+- Project web server works on port 3000
 
-- Postgres database works on port 5432 as provided in .env file
+- Postgres database works on port 5432
 
 
 ### Installation Instructions
